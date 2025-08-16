@@ -35,7 +35,7 @@ public class User {
     this.senha = user.senha();
   }
 
-  public UUID getId(){
+  public UUID getId() {
     return this.id;
   }
 
@@ -43,28 +43,28 @@ public class User {
     return this.nomeCompleto;
   }
 
-  public void setNomeCompleto(String nomeCompleto) {
-    this.nomeCompleto = nomeCompleto;
-  }
-
   public String getCpf() {
     return this.cpf;
-  }
-
-  public void setCpf(String cpf) {
-    this.cpf = cpf;
   }
 
   public String getEmail() {
     return this.email;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
   public String getSenha() {
     return this.senha;
+  }
+
+  public void setNomeCompleto(String nomeCompleto) {
+    this.nomeCompleto = nomeCompleto;
+  }
+
+  public void setCpf(String cpf) {
+    this.cpf = cpf;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public void setSenha(String senha) {
