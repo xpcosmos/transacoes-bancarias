@@ -35,39 +35,39 @@ public class User {
     this.senha = user.senha();
   }
 
-  UUID getId(){
+  public UUID getId(){
     return this.id;
   }
 
-  String getNomeCompleto() {
+  public String getNomeCompleto() {
     return this.nomeCompleto;
   }
 
-  void setNomeCompleto(String nomeCompleto) {
+  public void setNomeCompleto(String nomeCompleto) {
     this.nomeCompleto = nomeCompleto;
   }
 
-  String getCpf() {
+  public String getCpf() {
     return this.cpf;
   }
 
-  void setCpf(String cpf) {
+  public void setCpf(String cpf) {
     this.cpf = cpf;
   }
 
-  String getEmail() {
+  public String getEmail() {
     return this.email;
   }
 
-  void setEmail(String email) {
+  public void setEmail(String email) {
     this.email = email;
   }
 
-  String getSenha() {
+  public String getSenha() {
     return this.senha;
   }
 
-  void setSenha(String senha) {
+  public void setSenha(String senha) {
     this.senha = senha;
   }
 
