@@ -25,10 +25,10 @@ public class User {
   @Column(nullable = false)
   private String senha;
 
-  User() {
+  public User() {
   };
 
-  User(UserDTO user) {
+  public User(UserDTO user) {
     this.id = user.id();
     this.nomeCompleto = user.nomeCompleto();
     this.cpf = user.cpf();
