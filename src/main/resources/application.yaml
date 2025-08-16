@@ -2,4 +2,7 @@ spring:
   application:
     name: transacoes-bancarias
   jpa:
-    database: H2
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+      ddl-auto: create

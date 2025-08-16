@@ -1,7 +1,5 @@
 package com.xpcosmos.transacoes_bancarias.assets;
 
-import java.util.Optional;
-
 import com.xpcosmos.transacoes_bancarias.dto.UserDTO;
 import com.xpcosmos.transacoes_bancarias.models.User;
 

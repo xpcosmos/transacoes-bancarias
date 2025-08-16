@@ -1,7 +1,5 @@
 package com.xpcosmos.transacoes_bancarias.services;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -23,7 +21,7 @@ public class UserService {
   }
 
   // Read
-  Optional<User> getUserByCpf(String cpf) throws NotFoundException {
+  User getUserByCpf(String cpf) throws NotFoundException {
     return repository.findByCpf(cpf);
   }
 
