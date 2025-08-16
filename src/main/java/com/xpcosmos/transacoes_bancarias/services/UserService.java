@@ -15,13 +15,13 @@ public class UserService {
   UserRepository repository;
 
   // Create
-  User createUser(UserDTO user) {
+  public User createUser(UserDTO user) {
     User newUser = new User(user);
     return repository.save(newUser);
   }
 
   // Read
-  User getUserByCpf(String cpf) throws NotFoundException {
+  public User getUserByCpf(String cpf) throws NotFoundException {
     return repository.findByCpf(cpf);
   }
 
