@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: transacoes-bancarias
+  jpa:
+    database: H2
