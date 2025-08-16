@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import com.xpcosmos.transacoes_bancarias.dto.UserDTO;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,9 +16,13 @@ public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
+  @Column(nullable = false)
   private String nomeCompleto;
+  @Column(unique = true, nullable = false, updatable = false)
   private String cpf;
+  @Column(unique = true, nullable = false)
   private String email;
+  @Column(nullable = false)
   private String senha;
 
   User() {
