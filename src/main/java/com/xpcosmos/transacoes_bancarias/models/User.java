@@ -29,11 +29,14 @@ public class User {
   };
 
   public User(UserDTO user) {
-    this.id = user.id();
     this.nomeCompleto = user.nomeCompleto();
     this.cpf = user.cpf();
     this.email = user.email();
     this.senha = user.senha();
+  }
+
+  UUID getId(){
+    return this.id;
   }
 
   String getNomeCompleto() {
