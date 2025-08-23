@@ -2,13 +2,17 @@ package com.xpcosmos.transacoes_bancarias.models;
 
 import java.util.UUID;
 
+
 import com.xpcosmos.transacoes_bancarias.dto.ContaDTO;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,27 +20,33 @@ import jakarta.persistence.Table;
 public class Conta {
 
   @Id
+  @PrimaryKeyJoinColumn
   @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "id")
   private UUID Id;
+  
   @Column(unique = true, nullable = false, updatable = false)
-  private String numeroDeConta;
+  private Long numeroDeConta;
+
   @Column(unique = true, nullable = false, precision = 2, updatable = true)
   private Number saldo;
 
-  Conta() {
+  @OneToOne(mappedBy = "conta",cascade = CascadeType.ALL)
+  private User user;
+  public Conta() {
   }
 
-  Conta(ContaDTO conta) {
+  public Conta(ContaDTO conta) {
     this.numeroDeConta = conta.numeroDeConta();
     this.saldo = conta.saldo();
   }
 
   @Column(unique = true, nullable = false)
-  public String getNumeroDeConta() {
+  public Long getNumeroDeConta() {
     return this.numeroDeConta;
   }
 
-  public void setNumeroDeConta(String s) {
+  public void setNumeroDeConta(Long s) {
     this.numeroDeConta = s;
   }
 

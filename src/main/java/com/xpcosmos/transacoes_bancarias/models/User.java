@@ -4,11 +4,14 @@ import java.util.UUID;
 
 import com.xpcosmos.transacoes_bancarias.dto.UserDTO;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +29,10 @@ public class User {
   private String email;
   @Column(nullable = false)
   private String senha;
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "conta_id", referencedColumnName = "id")
+  private Conta conta;
 
   public User() {
   };
@@ -73,4 +80,11 @@ public class User {
     this.senha = senha;
   }
 
+  public void setConta(Conta conta){
+    this.conta = conta;
+  }
+
+  public Conta getConta(){
+    return this.conta;
+  }
 }

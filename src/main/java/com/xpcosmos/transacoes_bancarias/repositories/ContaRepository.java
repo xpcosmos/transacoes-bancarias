@@ -6,4 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.xpcosmos.transacoes_bancarias.models.Conta;
 
-public interface ContaRepository extends JpaRepository<Conta, UUID> {}
+
+public interface ContaRepository extends JpaRepository<Conta, UUID> {
+  Conta findByNumeroDeConta(Long numeroDeConta);
+}

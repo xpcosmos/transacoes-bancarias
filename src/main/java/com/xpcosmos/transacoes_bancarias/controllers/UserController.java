@@ -4,7 +4,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xpcosmos.transacoes_bancarias.dto.UserDTO;
+import com.xpcosmos.transacoes_bancarias.models.Conta;
 import com.xpcosmos.transacoes_bancarias.models.User;
+import com.xpcosmos.transacoes_bancarias.services.ContaService;
 import com.xpcosmos.transacoes_bancarias.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,23 @@ public class UserController {
 
   @Autowired
   UserService userService;
+  @Autowired
+  ContaService contaService;
 
   @PostMapping
   public ResponseEntity<User> postMethodName(@RequestBody UserDTO entity)  throws InternalError{
-    User response = userService.createUser(entity);
-    return new ResponseEntity<>(response, HttpStatus.CREATED);
+    Conta newConta = contaService.createConta();
+    User response;
+    try {
+      response = userService.createUser(entity, newConta);
+      return new ResponseEntity<>(response, HttpStatus.CREATED);
+      
+    } catch (Exception e) {
+      contaService.deleteConta(newConta.getNumeroDeConta());
+      throw new InternalError();
+    }
+    
+    
   }
 
 }
