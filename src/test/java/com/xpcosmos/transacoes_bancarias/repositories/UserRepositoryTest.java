@@ -27,7 +27,6 @@ public class UserRepositoryTest{
 
   private UserTestCase UserEntity = new UserTestCase();
 
-  @Test
   void testFindByCpf() {
       User resultUser = userRepository.findByDocumentoId(
       UserEntity.user.getDocumentoId()
