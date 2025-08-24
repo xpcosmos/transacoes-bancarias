@@ -2,6 +2,7 @@ package com.xpcosmos.transacoes_bancarias.models.operacoes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.xpcosmos.transacoes_bancarias.exceptions.OperationFailed;
 import com.xpcosmos.transacoes_bancarias.models.Conta;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,8 +40,17 @@ public class OperacaoConsultaSaldoTest {
 
   @Test
   void testExecutarComFalha() {
-    when(conta.getSaldo()).thenThrow(new Exception());
+    when(conta.getSaldo()).thenThrow(new RuntimeException("Generic"));
     var operacaoConsultaSaldo = new OperacaoConsultaSaldo(conta);
     assertThrows(Exception.class, () -> operacaoConsultaSaldo.executar());
   }
+
+  @Test
+  void testExceptionOperationFailed() {
+    when(conta.getSaldo()).thenThrow(new RuntimeException("Generic"));
+    var operacaoConsultaSaldo = new OperacaoConsultaSaldo(conta);
+    assertThrowsExactly(OperationFailed.class, () -> operacaoConsultaSaldo.executar());
+  }
+
+
 }

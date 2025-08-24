@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.xpcosmos.transacoes_bancarias.enums.StatusTransacionais;
+import com.xpcosmos.transacoes_bancarias.exceptions.OperationFailed;
 import com.xpcosmos.transacoes_bancarias.models.Conta;
 import com.xpcosmos.transacoes_bancarias.models.Transacao;
 
@@ -55,5 +56,5 @@ public abstract class Operacao {
     this.status = StatusTransacionais.PROCESSANDO;
   }
 
-  public abstract boolean executar() throws Exception;
+  public abstract boolean executar() throws OperationFailed;
 }
