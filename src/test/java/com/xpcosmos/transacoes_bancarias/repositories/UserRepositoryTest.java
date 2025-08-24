@@ -29,8 +29,8 @@ public class UserRepositoryTest{
 
   @Test
   void testFindByCpf() {
-      User resultUser = userRepository.findByCpf(
-      UserEntity.user.getCpf()
+      User resultUser = userRepository.findByDocumentoId(
+      UserEntity.user.getDocumentoId()
       );
     assertEquals(UserEntity.user, resultUser);
   }

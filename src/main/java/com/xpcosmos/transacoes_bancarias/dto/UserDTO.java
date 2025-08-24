@@ -2,7 +2,7 @@ package com.xpcosmos.transacoes_bancarias.dto;
 
 public record UserDTO(
     String nomeCompleto,
-    String cpf,
+    String documentoId,
     String email,
     String senha) {
 }

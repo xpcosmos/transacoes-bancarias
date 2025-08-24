@@ -25,8 +25,8 @@ public class UserService {
   }
 
   // Read
-  public User getUserByCpf(String cpf) throws NotFoundException {
-    return repository.findByCpf(cpf);
+  public User getUserByCpf(String documentoId) throws NotFoundException {
+    return repository.findByDocumentoId(documentoId);
   }
 
   public User deleteUser(User user){

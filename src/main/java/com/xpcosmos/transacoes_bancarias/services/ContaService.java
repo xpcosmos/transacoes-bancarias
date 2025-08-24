@@ -23,8 +23,8 @@ public class ContaService {
 
   public Conta deleteConta(Conta conta) throws NoSuchElementException {
     try {
-      repository.deleteById(conta);
-      return contaToRemove;
+      repository.deleteById(conta.getId());
+      return conta;
     } catch (NoSuchElementException e) {
       throw e;
     }

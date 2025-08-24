@@ -33,7 +33,7 @@ public class UserController {
       return new ResponseEntity<>(response, HttpStatus.CREATED);
       
     } catch (Exception e) {
-      contaService.deleteConta(newConta.getNumeroDeConta());
+      contaService.deleteConta(newConta);
       userService.deleteUser(newUser);
       throw new InternalError();
     }

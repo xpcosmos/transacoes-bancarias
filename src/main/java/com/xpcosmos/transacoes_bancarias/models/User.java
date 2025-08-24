@@ -24,7 +24,7 @@ public class User {
   @Column(nullable = false)
   private String nomeCompleto;
   @Column(unique = true, nullable = false, updatable = false)
-  private String cpf;
+  private String documentoId;
   @Column(unique = true, nullable = false)
   private String email;
   @Column(nullable = false)
@@ -39,7 +39,7 @@ public class User {
 
   public User(UserDTO user) {
     this.nomeCompleto = user.nomeCompleto();
-    this.cpf = user.cpf();
+    this.documentoId = user.documentoId();
     this.email = user.email();
     this.senha = user.senha();
   }
@@ -52,8 +52,8 @@ public class User {
     return this.nomeCompleto;
   }
 
-  public String getCpf() {
-    return this.cpf;
+  public String getDocumentoId() {
+    return this.documentoId;
   }
 
   public String getEmail() {
@@ -68,8 +68,8 @@ public class User {
     this.nomeCompleto = nomeCompleto;
   }
 
-  public void setCpf(String cpf) {
-    this.cpf = cpf;
+  public void setDocumentoId(String documentoId) {
+    this.documentoId = documentoId;
   }
 
   public void setEmail(String email) {
