@@ -29,6 +29,11 @@ public class UserService {
     return repository.findByCpf(cpf);
   }
 
+  public User deleteUser(User user){
+    repository.deleteById(user.getId());
+    return user;
+  }
+
   public User assignContaToUser(User user, Conta conta){
     user.setConta(conta);
     return repository.saveAndFlush(user);

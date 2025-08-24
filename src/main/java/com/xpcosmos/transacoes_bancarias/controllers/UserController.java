@@ -27,13 +27,14 @@ public class UserController {
   @PostMapping
   public ResponseEntity<User> postMethodName(@RequestBody UserDTO entity)  throws InternalError{
     Conta newConta = contaService.createConta();
-    User response;
+    User newUser = userService.createUser(entity);
     try {
-      response = userService.createUser(entity);
+      User response = userService.assignContaToUser(newUser, newConta);
       return new ResponseEntity<>(response, HttpStatus.CREATED);
       
     } catch (Exception e) {
       contaService.deleteConta(newConta.getNumeroDeConta());
+      userService.deleteUser(newUser);
       throw new InternalError();
     }
     
