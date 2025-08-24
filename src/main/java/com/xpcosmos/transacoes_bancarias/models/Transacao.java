@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "transacoes")
-public class Transacoes {
+public class Transacao {
   
 
   @Id
@@ -23,7 +23,7 @@ public class Transacoes {
   @Column(nullable = false)
   StatusTransacionais status;
 
-  Transacoes(){
+  Transacao(){
     this.status = StatusTransacionais.PROCESSANDO;
   }
 
