@@ -1,5 +1,6 @@
 package com.xpcosmos.transacoes_bancarias.models;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -11,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -33,6 +35,9 @@ public class Conta {
   private User user;
   public Conta() {
   }
+
+  @OneToMany
+  List<Transacao> transacoes;
 
   public Conta(ContaDTO conta) {
     this.numeroDeConta = conta.numeroDeConta();
