@@ -1,3 +1,5 @@
 package com.xpcosmos.transacoes_bancarias.dto;
 
-public record OperacaoDTO(String tipo,String status) {}
+import org.springframework.http.HttpStatus;
+
+public record OperacaoDTO(String tipo,HttpStatus status) {}

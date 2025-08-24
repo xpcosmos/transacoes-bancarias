@@ -2,6 +2,8 @@ package com.xpcosmos.transacoes_bancarias.models;
 
 import java.util.UUID;
 
+import com.xpcosmos.transacoes_bancarias.models.operacoes.Operacao;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
