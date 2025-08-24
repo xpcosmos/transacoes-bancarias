@@ -26,17 +26,17 @@ public class Transacao {
   StatusTransacionais status;
 
   @OneToMany
-  List<Operacao> operacoes;
+  List<Operacao<?>> operacoes;
 
   public Transacao() {
   }
 
-  public Transacao(Operacao[] operacoes) {
+  public Transacao(Operacao<?>[] operacoes) {
     this.status = StatusTransacionais.PROCESSANDO;
     this.operacoes = List.of(operacoes);
   }
 
-  public Transacao(List<Operacao> operacoes) {
+  public Transacao(List<Operacao<?>> operacoes) {
     this.status = StatusTransacionais.PROCESSANDO;
     this.operacoes = operacoes;
   }

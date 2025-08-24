@@ -38,7 +38,7 @@ public class Conta {
   }
 
   @OneToMany
-  List<Operacao> operacoes;
+  List<Operacao<?>> operacoes;
 
   public Conta(ContaDTO conta) {
     this.numeroDeConta = conta.numeroDeConta();

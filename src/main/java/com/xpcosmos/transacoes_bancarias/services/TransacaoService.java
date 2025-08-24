@@ -22,7 +22,7 @@ public class TransacaoService {
   OperacaoRepository operacaoRepository;
 
   public boolean consultarSaldo(Conta conta){
-    List<Operacao> listaDeOperacoes = List.of(
+    List<Operacao<?>> listaDeOperacoes = List.of(
       new OperacaoConsultaSaldo(conta)
     );
     var transacao = new Transacao(listaDeOperacoes);

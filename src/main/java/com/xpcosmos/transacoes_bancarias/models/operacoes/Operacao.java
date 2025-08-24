@@ -20,11 +20,12 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "operacao")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Operacao {
+public abstract class Operacao<T> {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -46,6 +47,14 @@ public abstract class Operacao {
   @ManyToOne
   @JoinColumn(name = "conta_id", nullable = false, updatable = false)
   Conta conta;
+
+  @Transient
+  T result;
+
+  T getResult(){
+    return this.result;
+  }; 
+
 
   Operacao() {
   }
