@@ -41,4 +41,8 @@ public class Transacao {
     this.operacoes = operacoes;
   }
 
+  public boolean executeAll(){
+    return this.operacoes.stream().allMatch(e -> e.executar());
+  }
+
 }

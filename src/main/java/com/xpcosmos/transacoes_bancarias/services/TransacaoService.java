@@ -21,12 +21,12 @@ public class TransacaoService {
   @Autowired
   OperacaoRepository operacaoRepository;
 
-  public Transacao consultarSaldo(Conta conta){
+  public boolean consultarSaldo(Conta conta){
     List<Operacao> listaDeOperacoes = List.of(
       new OperacaoConsultaSaldo(conta)
     );
     var transacao = new Transacao(listaDeOperacoes);
-    return transacao;
+    return transacao.executeAll();
   }
 
 

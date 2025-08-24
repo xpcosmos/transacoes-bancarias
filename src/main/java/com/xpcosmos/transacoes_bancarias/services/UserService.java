@@ -27,7 +27,6 @@ public class UserService {
       User newUser = new User(user);
       return repository.save(newUser);
     }
-
   }
 
   // Read
