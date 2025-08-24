@@ -5,7 +5,7 @@ import com.xpcosmos.transacoes_bancarias.models.Conta;
 
 public class OperacaoConsultaSaldo extends Operacao {
 
-  OperacaoConsultaSaldo(Conta conta) {
+  public OperacaoConsultaSaldo(Conta conta) {
     super("Consulta", conta);
   }
 
