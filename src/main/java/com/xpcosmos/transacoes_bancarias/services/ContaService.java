@@ -16,13 +16,7 @@ public class ContaService {
   ContaRepository repository;
 
   public Conta createConta() {
-    Long lastNumeroConta;
-    try {
-      lastNumeroConta = repository.findAll().getLast().getNumeroDeConta();
-    } catch (NoSuchElementException e) {
-      lastNumeroConta = 0l;
-    }
-    var newConta = new Conta(new ContaDTO(lastNumeroConta, 0));
+    var newConta = new Conta(new ContaDTO(generateNewNumeroConta(), 0));
     repository.save(newConta);
     return newConta;
   }
@@ -35,7 +29,15 @@ public class ContaService {
     } catch (NoSuchElementException e) {
       throw e;
     }
+  }
 
+  private Long generateNewNumeroConta() throws NoSuchElementException{
+    try {
+      return repository.findAll().getLast().getNumeroDeConta() + 1;
+    } catch (NoSuchElementException e) {
+      return 0l;
+    }
+    
   }
 
 }

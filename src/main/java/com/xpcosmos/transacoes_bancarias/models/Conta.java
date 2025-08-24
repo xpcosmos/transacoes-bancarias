@@ -12,7 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,7 +19,6 @@ import jakarta.persistence.Table;
 public class Conta {
 
   @Id
-  @PrimaryKeyJoinColumn
   @GeneratedValue(strategy = GenerationType.UUID)
   @Column(name = "id")
   private UUID Id;
@@ -28,7 +26,7 @@ public class Conta {
   @Column(unique = true, nullable = false, updatable = false)
   private Long numeroDeConta;
 
-  @Column(unique = true, nullable = false, precision = 2, updatable = true)
+  @Column(nullable = false, precision = 2, updatable = true)
   private Number saldo;
 
   @OneToOne(mappedBy = "conta",cascade = CascadeType.ALL)

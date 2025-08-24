@@ -37,8 +37,6 @@ public class UserController {
       userService.deleteUser(newUser);
       throw new InternalError();
     }
-    
-    
   }
 
 }
