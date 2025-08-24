@@ -1,3 +1,6 @@
 package com.xpcosmos.transacoes_bancarias.dto;
 
-public record TransacaoDTO() {}
+import com.xpcosmos.transacoes_bancarias.models.Conta;
+
+public record TransacaoDTO(Conta from, Conta to, Number value) {
+}
