@@ -21,10 +21,9 @@ public class ContaService {
     return newConta;
   }
 
-  public Conta deleteConta(Long numeroDeConta) throws NoSuchElementException {
+  public Conta deleteConta(Conta conta) throws NoSuchElementException {
     try {
-      var contaToRemove = repository.findByNumeroDeConta(numeroDeConta);
-      repository.delete(contaToRemove);
+      repository.deleteById(conta);
       return contaToRemove;
     } catch (NoSuchElementException e) {
       throw e;

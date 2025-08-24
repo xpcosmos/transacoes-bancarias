@@ -39,7 +39,11 @@ public class Conta {
     this.saldo = conta.saldo();
   }
 
-  @Column(unique = true, nullable = false)
+
+  public UUID getId(){
+    return this.Id;
+  }
+
   public Long getNumeroDeConta() {
     return this.numeroDeConta;
   }
