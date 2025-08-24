@@ -20,9 +20,8 @@ public class ContaService {
     try {
       lastNumeroConta = repository.findAll().getLast().getNumeroDeConta();
     } catch (NoSuchElementException e) {
-      lastNumeroConta =  0l;
+      lastNumeroConta = 0l;
     }
-    
     var newConta = new Conta(new ContaDTO(lastNumeroConta, 0));
     repository.save(newConta);
     return newConta;

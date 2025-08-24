@@ -29,7 +29,7 @@ public class UserController {
     Conta newConta = contaService.createConta();
     User response;
     try {
-      response = userService.createUser(entity, newConta);
+      response = userService.createUser(entity);
       return new ResponseEntity<>(response, HttpStatus.CREATED);
       
     } catch (Exception e) {

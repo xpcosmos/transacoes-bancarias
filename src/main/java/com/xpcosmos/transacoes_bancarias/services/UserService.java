@@ -9,6 +9,9 @@ import com.xpcosmos.transacoes_bancarias.models.Conta;
 import com.xpcosmos.transacoes_bancarias.models.User;
 import com.xpcosmos.transacoes_bancarias.repositories.UserRepository;
 
+import jakarta.transaction.Transactional;
+
+@Transactional
 @Service
 public class UserService {
 
@@ -16,9 +19,8 @@ public class UserService {
   UserRepository repository;
 
   // Create
-  public User createUser(UserDTO user, Conta conta) {
+  public User createUser(UserDTO user) {
     User newUser = new User(user);
-    newUser.setConta(conta);
     return repository.save(newUser);
   }
 
@@ -27,5 +29,9 @@ public class UserService {
     return repository.findByCpf(cpf);
   }
 
+  public User assignContaToUser(User user, Conta conta){
+    user.setConta(conta);
+    return repository.saveAndFlush(user);
+  }
 
 }
