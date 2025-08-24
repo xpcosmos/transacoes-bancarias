@@ -13,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -37,8 +38,6 @@ public class Conta {
   public Conta() {
   }
 
-  @OneToMany
-  List<Transacao> transacoes;
   @OneToMany
   List<Operacao> operacoes;
 
