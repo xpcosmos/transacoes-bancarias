@@ -5,6 +5,7 @@ import java.util.UUID;
 
 
 import com.xpcosmos.transacoes_bancarias.dto.ContaDTO;
+import com.xpcosmos.transacoes_bancarias.models.operacoes.Operacao;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -38,6 +39,8 @@ public class Conta {
 
   @OneToMany
   List<Transacao> transacoes;
+  @OneToMany
+  List<Operacao> operacoes;
 
   public Conta(ContaDTO conta) {
     this.numeroDeConta = conta.numeroDeConta();
