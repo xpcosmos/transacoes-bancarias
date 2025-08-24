@@ -1,6 +1,5 @@
 package com.xpcosmos.transacoes_bancarias.dto;
 
-import com.xpcosmos.transacoes_bancarias.models.Conta;
+import com.xpcosmos.transacoes_bancarias.enums.StatusTransacionais;
 
-public record TransacaoDTO(Conta from, Conta to, Number value) {
-}
+public record TransacaoDTO(StatusTransacionais status) {}
