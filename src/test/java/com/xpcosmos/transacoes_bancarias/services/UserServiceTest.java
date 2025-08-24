@@ -1,6 +1,7 @@
 package com.xpcosmos.transacoes_bancarias.services;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.xpcosmos.transacoes_bancarias.assets.UserTestCase;
+import com.xpcosmos.transacoes_bancarias.exceptions.DuplicateUserException;
 import com.xpcosmos.transacoes_bancarias.models.User;
 import com.xpcosmos.transacoes_bancarias.repositories.UserRepository;
 
@@ -28,5 +30,12 @@ public class UserServiceTest extends UserTestCase {
     User result = service.createUser(userDTO);
     assertNotNull(result);
   }
+
+  
+  @Test
+  void testUserDuplicatedCreation() throws Exception {
+    when(repository.existsByDocumentoId(ArgumentMatchers.anyString())).thenReturn(true);
+    assertThrowsExactly(DuplicateUserException.class, () -> service.createUser(userDTO));
+  };
 
 }

@@ -9,4 +9,5 @@ import com.xpcosmos.transacoes_bancarias.models.User;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
   User findByDocumentoId(String documentoId);
+  boolean existsByDocumentoId(String documentoId);
 }

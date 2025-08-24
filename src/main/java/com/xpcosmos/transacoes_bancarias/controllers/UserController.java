@@ -31,11 +31,10 @@ public class UserController {
     try {
       User response = userService.assignContaToUser(newUser, newConta);
       return new ResponseEntity<>(response, HttpStatus.CREATED);
-      
     } catch (Exception e) {
       contaService.deleteConta(newConta);
       userService.deleteUser(newUser);
-      throw new InternalError();
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
   }
 
