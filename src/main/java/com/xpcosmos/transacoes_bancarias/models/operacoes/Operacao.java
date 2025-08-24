@@ -7,15 +7,18 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.http.HttpStatus;
 
 import com.xpcosmos.transacoes_bancarias.dto.OperacaoDTO;
+import com.xpcosmos.transacoes_bancarias.models.Transacao;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
-public abstract class Operacao {
+public abstract class Operacao<T> {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   UUID id;
@@ -28,6 +31,11 @@ public abstract class Operacao {
 
   @CreationTimestamp
   LocalDateTime createdOn;
+
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "transacao")
+  Transacao transacao;
+
+  public abstract T getResult();
 
   public Operacao(OperacaoDTO operacao) {
     this.status = HttpStatus.PROCESSING;
@@ -53,7 +61,5 @@ public abstract class Operacao {
     return this.status;
   }
 
-  public void setStatus(HttpStatus status) {
-    this.status = status;
-  }
+  abstract boolean executar();
 }
