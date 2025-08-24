@@ -49,10 +49,11 @@ public abstract class Operacao {
   Operacao() {
   }
 
-  Operacao(String tipoOperacao) {
+  Operacao(String tipoOperacao, Conta conta) {
+    this.conta = conta;
     this.tipoOperacao = tipoOperacao;
     this.status = StatusTransacionais.PROCESSANDO;
   }
 
-  public abstract boolean executar();
+  public abstract boolean executar() throws Exception;
 }
