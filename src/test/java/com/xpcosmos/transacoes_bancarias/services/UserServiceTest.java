@@ -34,8 +34,8 @@ public class UserServiceTest extends UserTestResource {
 
 	@BeforeEach
 	void createUsers(){
-		user = gerarUserTest(null, null);
-		userDto = gerarUserTestDTO(null, null);
+		user = gerarUserTest();
+		userDto = gerarUserTestDTO();
 	}
 
   @Test
