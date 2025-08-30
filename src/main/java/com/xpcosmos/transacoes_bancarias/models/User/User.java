@@ -28,6 +28,8 @@ public class User {
   private String senha;
 	@Column(nullable = false, updatable = false)
 	private UserType tipoUsuario;
+	@Column(nullable = false)
+	private Double saldo;
 
   public User() {
   };
@@ -37,6 +39,7 @@ public class User {
     this.documentoId = user.documentoId();
     this.email = user.email();
 		this.tipoUsuario = user.tipoUsuario();
+		this.saldo = user.saldo();
     this.senha = user.senha();
   }
 
@@ -60,6 +63,10 @@ public class User {
     return this.senha;
   }
 
+	public Double getSaldo(){
+		return this.saldo;
+	}
+
   public void setNomeCompleto(String nomeCompleto) {
     this.nomeCompleto = nomeCompleto;
   }
@@ -75,4 +82,8 @@ public class User {
   public void setSenha(String senha) {
     this.senha = senha;
   }
+
+	public void setSaldo(Double saldo){
+		this.saldo = saldo;
+	}
 }
