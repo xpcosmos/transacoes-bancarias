@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.xpcosmos.transacoes_bancarias.assets.UserTestResource;
-import com.xpcosmos.transacoes_bancarias.models.User;
+import com.xpcosmos.transacoes_bancarias.models.User.User;
 
 import jakarta.persistence.EntityManager;
 

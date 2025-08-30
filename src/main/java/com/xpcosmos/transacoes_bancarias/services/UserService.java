@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.xpcosmos.transacoes_bancarias.dto.UserDTO;
 import com.xpcosmos.transacoes_bancarias.exceptions.DuplicateUserException;
-import com.xpcosmos.transacoes_bancarias.models.User;
+import com.xpcosmos.transacoes_bancarias.models.User.User;
 import com.xpcosmos.transacoes_bancarias.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;

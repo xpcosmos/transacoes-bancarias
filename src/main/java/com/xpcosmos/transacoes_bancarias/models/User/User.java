@@ -1,4 +1,4 @@
-package com.xpcosmos.transacoes_bancarias.models;
+package com.xpcosmos.transacoes_bancarias.models.User;
 
 import java.util.UUID;
 

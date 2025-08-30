@@ -4,9 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xpcosmos.transacoes_bancarias.dto.UserDTO;
-
-import com.xpcosmos.transacoes_bancarias.models.User;
-
+import com.xpcosmos.transacoes_bancarias.models.User.User;
 import com.xpcosmos.transacoes_bancarias.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
