@@ -1,7 +1,5 @@
 package com.xpcosmos.transacoes_bancarias.services;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -17,28 +15,34 @@ import jakarta.transaction.Transactional;
 @Service
 public class UserService {
 
-  @Autowired
-  UserRepository repository;
+	@Autowired
+	UserRepository repository;
 
-  public User createUser(UserDTO user) throws DuplicateUserException{
-    User newUser = new User(user);
-		if (repository.existsByDocumentoId(newUser.getDocumentoId())){
+	public User createUser(UserDTO user) throws DuplicateUserException {
+		User newUser = new User(user);
+		if (repository.existsByDocumentoId(newUser.getDocumentoId())) {
 			throw new DuplicateUserException();
-		} else{
+		} else {
 			return newUser;
 		}
+	}
 
-  }
+	public Double creditarValor() {
+		return 0d;
+	}
 
-  // Read
-  public User getUserByDocumentoId(String documentoId) throws NotFoundException {
-    return repository.findByDocumentoId(documentoId);
-  }
+	// Read
+	public User getUserByDocumentoId(String documentoId) throws NotFoundException {
+		return repository.findByDocumentoId(documentoId);
+	}
 
-  public UUID deleteUser(UUID id) {
-    repository.deleteById(id);
-    return id;
-  }
+	public User getUserById(Long id) throws NotFoundException {
+		return repository.findById(id).orElseThrow(() -> new NotFoundException());
+	}
 
+	public Long deleteUser(Long id) {
+		repository.deleteById(id);
+		return id;
+	}
 
 }
