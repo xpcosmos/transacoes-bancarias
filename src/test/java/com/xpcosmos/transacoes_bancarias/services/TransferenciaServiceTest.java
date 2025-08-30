@@ -25,7 +25,7 @@ public class TransferenciaServiceTest extends UserTestResource {
 
 	@Test
 	void testExceptionSaldoInsuficiente() throws Exception {
-		User user = gerarUserTest();
+		User user = gerarEntity();
 		TransacaoDTO transacaoDTO = new TransacaoDTO(1l, user.getId(), 10f);
 		when(userService.getUserById(user.getId())).thenReturn(user);
 		assertThrowsExactly(NotEnoughMoneyException.class, () -> transferenciaService.tranferir(transacaoDTO));
@@ -34,8 +34,9 @@ public class TransferenciaServiceTest extends UserTestResource {
 	@Test
 	void testExceptionValorNegativo() throws Exception {
 
-		User pagador = gerarUserTest(20f);
-		User beneficiario = gerarUserTest();
+		User pagador = gerarEntity();
+		pagador.setSaldo(20f);
+		User beneficiario = gerarEntity();
 		TransacaoDTO transacaoDTO = new TransacaoDTO(pagador.getId(), beneficiario.getId(), -10f);
 
 		when(userService.getUserById(pagador.getId())).thenReturn(pagador);

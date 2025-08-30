@@ -31,7 +31,7 @@ public class UserControllerTest extends UserTestResource {
 	void testUserCreation() throws Exception {
 		mockMvc.perform(
 				post("/user")
-						.content(gerarUserTestDtoAsString())
+						.content(gerarStringDTO())
 						.contentType(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isCreated());
@@ -41,7 +41,7 @@ public class UserControllerTest extends UserTestResource {
 	void testResponseSenhaNull() throws Exception {
 		MvcResult result = mockMvc.perform(
 				post("/user")
-						.content(gerarUserTestDtoAsString())
+						.content(gerarStringDTO())
 						.contentType(MediaType.APPLICATION_JSON))
 				.andReturn();
 

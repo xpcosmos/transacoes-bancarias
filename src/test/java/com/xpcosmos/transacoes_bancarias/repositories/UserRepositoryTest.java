@@ -27,8 +27,8 @@ public class UserRepositoryTest extends UserTestResource{
 	private User user;
 
 	@BeforeEach
-  void setUp(){
-		user = gerarUserTest();
+  void setUp() throws Exception{
+		user = gerarEntity();
     entityManager.persist(user);
   }
 
