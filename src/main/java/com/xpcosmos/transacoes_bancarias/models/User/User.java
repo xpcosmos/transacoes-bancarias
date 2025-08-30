@@ -28,6 +28,8 @@ public class User {
   @Column(nullable = false)
 	@JsonIgnore
   private String senha;
+	@Column(nullable = false, updatable = false)
+	private UserType tipoUsuario;
 
   public User() {
   };
@@ -36,6 +38,7 @@ public class User {
     this.nomeCompleto = user.nomeCompleto();
     this.documentoId = user.documentoId();
     this.email = user.email();
+		this.tipoUsuario = user.tipoUsuario();
     this.senha = user.senha();
   }
 

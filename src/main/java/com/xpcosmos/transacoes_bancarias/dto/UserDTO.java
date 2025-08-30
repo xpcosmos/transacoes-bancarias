@@ -7,6 +7,6 @@ public record UserDTO(
     String nomeCompleto,
     String documentoId,
     String email,
-		UserType userType,
+		UserType tipoUsuario,
     String senha) {
 }
