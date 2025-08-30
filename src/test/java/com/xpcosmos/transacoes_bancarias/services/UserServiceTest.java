@@ -51,7 +51,7 @@ public class UserServiceTest extends UserTestResource {
 		Float saldoInicial = user.getSaldo();
 
     when(repository.findById(user.getId())).thenReturn(Optional.of(user));
-		service.updateValor(user.getId(), saldoParaCreditar);
+		service.incrementarSaldo(user.getId(), saldoParaCreditar);
 		User updatedUser = service.getUserById(user.getId());
 
 		assertEquals(saldoParaCreditar, updatedUser.getSaldo());

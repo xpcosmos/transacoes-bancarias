@@ -28,7 +28,7 @@ public class UserService {
 		}
 	}
 
-	public Float updateValor(Long id, Float valor) throws InvalidOperationException, NotFoundException {
+	public Float incrementarSaldo(Long id, Float valor) throws InvalidOperationException, NotFoundException {
 		User user = getUserById(id);
 		Float saldoAtual = user.getSaldo();
 		saldoAtual += valor;
