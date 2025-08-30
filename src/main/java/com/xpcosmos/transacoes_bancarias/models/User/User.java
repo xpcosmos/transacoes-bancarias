@@ -29,7 +29,7 @@ public class User {
 	@Column(nullable = false, updatable = false)
 	private UserType tipoUsuario;
 	@Column(nullable = false)
-	private Double saldo;
+	private Float saldo;
 
   public User() {
   };
@@ -63,7 +63,7 @@ public class User {
     return this.senha;
   }
 
-	public Double getSaldo(){
+	public Float getSaldo(){
 		return this.saldo;
 	}
 
@@ -83,7 +83,7 @@ public class User {
     this.senha = senha;
   }
 
-	public void setSaldo(Double saldo){
+	public void setSaldo(Float saldo){
 		this.saldo = saldo;
 	}
 }

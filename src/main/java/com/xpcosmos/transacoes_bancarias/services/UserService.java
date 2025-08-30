@@ -28,9 +28,11 @@ public class UserService {
 		}
 	}
 
-	public Double creditarValor(Long id, Double valor){
+	public Double creditarValor(Long id, Float valor){
 		try {
 			User user = getUserById(id);
+			Float saldoAtual = user.getSaldo();
+			user.setSaldo(valor);
 		} catch (NotFoundException e) {
 			throw new InvalidOperationException();
 		}

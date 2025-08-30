@@ -12,9 +12,9 @@ import com.xpcosmos.transacoes_bancarias.models.User.UserType;
 public class UserTestResource {
 	ObjectMapper mapper = new ObjectMapper();
 
-	public UserDTO gerarUserTestDTO(Optional<UserType> userTypeOpt, Optional<Double> saldoOptional){
+	public UserDTO gerarUserTestDTO(Optional<UserType> userTypeOpt, Optional<Float> saldoOptional){
 		UserType userType = userTypeOpt == null ? UserType.COMUM : userTypeOpt.get();
-		Double saldo = saldoOptional == null ? 0d : saldoOptional.get();
+		Float saldo = saldoOptional == null ? 0f : saldoOptional.get();
 		String randomString = String.valueOf(LocalDateTime.now().hashCode());
 		return  new UserDTO(
       "User Teste",
@@ -26,11 +26,11 @@ public class UserTestResource {
 	}
 
 
-	public String gerarUserTestDtoAsString(Optional<UserType> userTypeOpt, Optional<Double> saldoOptional) throws JsonProcessingException{
+	public String gerarUserTestDtoAsString(Optional<UserType> userTypeOpt, Optional<Float> saldoOptional) throws JsonProcessingException{
 		return mapper.writeValueAsString(gerarUserTestDTO(userTypeOpt, saldoOptional));
 	}
 
-	public User gerarUserTest(Optional<UserType> userTypeOpt,Optional<Double> saldoOptional){
+	public User gerarUserTest(Optional<UserType> userTypeOpt,Optional<Float> saldoOptional){
 		return  new User(gerarUserTestDTO(userTypeOpt, saldoOptional));
 	}
 }

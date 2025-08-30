@@ -8,6 +8,6 @@ public record UserDTO(
     String documentoId,
     String email,
 		UserType tipoUsuario,
-		Double saldo,
+		Float saldo,
     String senha) {
 }
