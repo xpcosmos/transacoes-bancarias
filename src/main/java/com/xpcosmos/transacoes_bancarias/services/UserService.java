@@ -1,5 +1,7 @@
 package com.xpcosmos.transacoes_bancarias.services;
 
+import javax.management.InvalidAttributeValueException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -28,19 +30,14 @@ public class UserService {
 		}
 	}
 
-	public Double creditarValor(Long id, Float valor){
-		try {
-			User user = getUserById(id);
-			Float saldoAtual = user.getSaldo();
-			user.setSaldo(valor);
-		} catch (NotFoundException e) {
-			throw new InvalidOperationException();
-		}
-
-		return 0d;
+	public Float updateValor(Long id, Float valor) throws InvalidOperationException, NotFoundException {
+		User user = getUserById(id);
+		Float saldoAtual = user.getSaldo();
+		saldoAtual += valor;
+		user.setSaldo(saldoAtual);
+		return saldoAtual;
 	}
 
-	// Read
 	public User getUserByDocumentoId(String documentoId) throws NotFoundException {
 		return repository.findByDocumentoId(documentoId).orElseThrow(() -> new NotFoundException());
 	}
