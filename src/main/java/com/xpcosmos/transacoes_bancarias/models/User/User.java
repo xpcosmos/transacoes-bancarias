@@ -1,7 +1,5 @@
 package com.xpcosmos.transacoes_bancarias.models.User;
 
-import java.util.UUID;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xpcosmos.transacoes_bancarias.dto.UserDTO;
 
@@ -17,8 +15,8 @@ import jakarta.persistence.Table;
 public class User {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private UUID id;
+  @GeneratedValue(strategy = GenerationType.TABLE)
+  private Long id;
   @Column(nullable = false)
   private String nomeCompleto;
   @Column(unique = true, nullable = false, updatable = false)
@@ -42,7 +40,7 @@ public class User {
     this.senha = user.senha();
   }
 
-  public UUID getId() {
+  public Long getId() {
     return this.id;
   }
 
