@@ -3,7 +3,6 @@ package com.xpcosmos.transacoes_bancarias.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -15,7 +14,6 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 
 import com.xpcosmos.transacoes_bancarias.assets.UserTestResource;
 import com.xpcosmos.transacoes_bancarias.dto.UserDTO;
