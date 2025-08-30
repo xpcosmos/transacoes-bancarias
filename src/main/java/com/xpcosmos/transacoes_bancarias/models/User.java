@@ -2,16 +2,14 @@ package com.xpcosmos.transacoes_bancarias.models;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xpcosmos.transacoes_bancarias.dto.UserDTO;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,22 +22,19 @@ public class User {
   @Column(nullable = false)
   private String nomeCompleto;
   @Column(unique = true, nullable = false, updatable = false)
-  private String cpf;
+  private String documentoId;
   @Column(unique = true, nullable = false)
   private String email;
   @Column(nullable = false)
+	@JsonIgnore
   private String senha;
-
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "conta_id", referencedColumnName = "id")
-  private Conta conta;
 
   public User() {
   };
 
   public User(UserDTO user) {
     this.nomeCompleto = user.nomeCompleto();
-    this.cpf = user.cpf();
+    this.documentoId = user.documentoId();
     this.email = user.email();
     this.senha = user.senha();
   }
@@ -52,8 +47,8 @@ public class User {
     return this.nomeCompleto;
   }
 
-  public String getCpf() {
-    return this.cpf;
+  public String getDocumentoId() {
+    return this.documentoId;
   }
 
   public String getEmail() {
@@ -68,8 +63,8 @@ public class User {
     this.nomeCompleto = nomeCompleto;
   }
 
-  public void setCpf(String cpf) {
-    this.cpf = cpf;
+  public void setDocumentoId(String documentoId) {
+    this.documentoId = documentoId;
   }
 
   public void setEmail(String email) {
@@ -78,13 +73,5 @@ public class User {
 
   public void setSenha(String senha) {
     this.senha = senha;
-  }
-
-  public void setConta(Conta conta){
-    this.conta = conta;
-  }
-
-  public Conta getConta(){
-    return this.conta;
   }
 }
