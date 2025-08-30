@@ -1,7 +1,6 @@
 package com.xpcosmos.transacoes_bancarias.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.mockito.Mockito.clearInvocations;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
