@@ -5,8 +5,6 @@ import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.xpcosmos.transacoes_bancarias.dto.UserDTO;
-import com.xpcosmos.transacoes_bancarias.exceptions.DuplicateUserException;
-import com.xpcosmos.transacoes_bancarias.models.Conta;
 import com.xpcosmos.transacoes_bancarias.models.User;
 import com.xpcosmos.transacoes_bancarias.repositories.UserRepository;
 
@@ -20,17 +18,13 @@ public class UserService {
   UserRepository repository;
 
   // Create
-  public User createUser(UserDTO user) throws DuplicateUserException {
-    if (repository.existsByDocumentoId(user.documentoId())) {
-      throw new DuplicateUserException();
-    } else {
-      User newUser = new User(user);
-      return repository.save(newUser);
-    }
+  public User createUser(UserDTO user) {
+    User newUser = new User(user);
+    return repository.save(newUser);
   }
 
   // Read
-  public User getUserByCpf(String documentoId) throws NotFoundException {
+  public User getUserByDocumentoId(String documentoId) throws NotFoundException {
     return repository.findByDocumentoId(documentoId);
   }
 
@@ -39,9 +33,5 @@ public class UserService {
     return user;
   }
 
-  public User assignContaToUser(User user, Conta conta) {
-    user.setConta(conta);
-    return repository.saveAndFlush(user);
-  }
 
 }

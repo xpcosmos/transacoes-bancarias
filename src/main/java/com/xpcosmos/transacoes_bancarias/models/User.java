@@ -2,16 +2,14 @@ package com.xpcosmos.transacoes_bancarias.models;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xpcosmos.transacoes_bancarias.dto.UserDTO;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,11 +26,8 @@ public class User {
   @Column(unique = true, nullable = false)
   private String email;
   @Column(nullable = false)
+	@JsonIgnore
   private String senha;
-
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "conta_id", referencedColumnName = "id")
-  private Conta conta;
 
   public User() {
   };
@@ -78,13 +73,5 @@ public class User {
 
   public void setSenha(String senha) {
     this.senha = senha;
-  }
-
-  public void setConta(Conta conta){
-    this.conta = conta;
-  }
-
-  public Conta getConta(){
-    return this.conta;
   }
 }
