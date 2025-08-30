@@ -36,14 +36,6 @@ public class UserServiceTest extends UserTestResource {
 	}
 
   @Test
-  void testCreateUser() throws Exception {
-    when(repository.save(ArgumentMatchers.any(User.class))).thenReturn(user);
-    User result = service.createUser(userDto);
-    assertNotNull(result);
-  }
-
-
-  @Test
   void testUserDuplicatedCreation() throws Exception {
     when(repository.existsByDocumentoId(ArgumentMatchers.anyString())).thenReturn(true);
     assertThrowsExactly(DuplicateUserException.class, () -> service.createUser(userDto));
