@@ -29,7 +29,7 @@ public class UserRepositoryTest extends UserTestResource{
 
 	@BeforeEach
   void setUp(){
-		user = gerarUserTest();
+		user = gerarUserTest(null);
     entityManager.persist(user);
   }
 
