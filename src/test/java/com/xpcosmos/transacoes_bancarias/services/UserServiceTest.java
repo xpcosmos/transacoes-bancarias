@@ -1,6 +1,5 @@
 package com.xpcosmos.transacoes_bancarias.services;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.mockito.Mockito.when;
 

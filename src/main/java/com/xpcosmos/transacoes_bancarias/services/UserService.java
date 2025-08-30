@@ -1,5 +1,7 @@
 package com.xpcosmos.transacoes_bancarias.services;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -33,9 +35,9 @@ public class UserService {
     return repository.findByDocumentoId(documentoId);
   }
 
-  public User deleteUser(User user) {
-    repository.deleteById(user.getId());
-    return user;
+  public UUID deleteUser(UUID id) {
+    repository.deleteById(id);
+    return id;
   }
 
 
