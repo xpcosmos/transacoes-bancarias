@@ -33,7 +33,7 @@ public class UserService {
 
 	// Read
 	public User getUserByDocumentoId(String documentoId) throws NotFoundException {
-		return repository.findByDocumentoId(documentoId);
+		return repository.findByDocumentoId(documentoId).orElseThrow(() -> new NotFoundException());
 	}
 
 	public User getUserById(Long id) throws NotFoundException {

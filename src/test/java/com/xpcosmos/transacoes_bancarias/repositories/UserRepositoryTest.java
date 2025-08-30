@@ -3,7 +3,6 @@ package com.xpcosmos.transacoes_bancarias.repositories;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class UserRepositoryTest extends UserTestResource{
   void testFindByDocumentoId() {
       User resultUser = userRepository.findByDocumentoId(
       user.getDocumentoId()
-      );
+      ).get();
     assertEquals(user, resultUser);
   }
 
