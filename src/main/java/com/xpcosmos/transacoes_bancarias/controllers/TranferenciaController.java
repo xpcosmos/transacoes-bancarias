@@ -9,7 +9,7 @@ import com.xpcosmos.transacoes_bancarias.services.TransferenciaService;
 import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,9 +24,9 @@ public class TranferenciaController {
 	TransferenciaService service;
 
 	@PostMapping
-	public ResponseEntity<HttpStatus> tranferir(@RequestBody TransacaoDTO transacaoDTO) throws Exception{
+	public ResponseEntity<TransacaoDTO> tranferir(@RequestBody TransacaoDTO transacaoDTO) throws Exception{
 		service.tranferir(transacaoDTO);
-		return ResponseEntity.ok().body(null);
+		return ResponseEntity.ok().body(transacaoDTO);
 	}
 
 }

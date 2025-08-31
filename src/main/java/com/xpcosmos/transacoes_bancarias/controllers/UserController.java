@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xpcosmos.transacoes_bancarias.dto.UserDTO;
+import com.xpcosmos.transacoes_bancarias.exceptions.DuplicateUserException;
 import com.xpcosmos.transacoes_bancarias.models.User.User;
 import com.xpcosmos.transacoes_bancarias.services.UserService;
 
@@ -25,9 +26,13 @@ public class UserController {
 	UserService userService;
 
 	@PostMapping
-	public ResponseEntity<User> postMethodName(@RequestBody UserDTO entity) throws InternalError {
-
+	public ResponseEntity<User> postNewuser(@RequestBody UserDTO entity) throws DuplicateUserException {
 		User response = userService.createUser(entity);
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
+	}
+  @PostMapping("/batch")
+	public ResponseEntity<List<User>> postNewBatchUser(@RequestBody List<UserDTO> entity) throws DuplicateUserException {
+		List<User> response = userService.batchCreateUsers(entity);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 
