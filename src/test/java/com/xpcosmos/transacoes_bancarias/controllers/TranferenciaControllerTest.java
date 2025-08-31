@@ -6,6 +6,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -19,10 +21,10 @@ import com.xpcosmos.transacoes_bancarias.models.User.User;
 import com.xpcosmos.transacoes_bancarias.services.TransferenciaService;
 import com.xpcosmos.transacoes_bancarias.services.UserService;
 
-import jakarta.persistence.EntityManager;
-
-@AutoConfigureMockMvc
 @SpringBootTest
+@AutoConfigureMockMvc
+@AutoConfigureTestDatabase
+@AutoConfigureTestEntityManager
 public class TranferenciaControllerTest extends TransferenciaTestResource {
 
 	@Autowired
@@ -35,9 +37,6 @@ public class TranferenciaControllerTest extends TransferenciaTestResource {
 
 	UserTestResource userEntity = new UserTestResource();
 
-	@Autowired
-	EntityManager entityManager;
-
 	User payee;
 	User payer;
 
@@ -49,9 +48,6 @@ public class TranferenciaControllerTest extends TransferenciaTestResource {
 
 		payer = userEntity.gerarEntity();
 		payer.setSaldo(20f);
-
-		entityManager.persist(payer);
-		entityManager.persist(payee);
 	}
 
 	@Test
