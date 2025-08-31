@@ -1,11 +1,13 @@
 package com.xpcosmos.transacoes_bancarias;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootTest
 @EnableTransactionManagement
+@AutoConfigureTestDatabase
 class TransacoesBancariasApplicationTests {
 
 	@Test

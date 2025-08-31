@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -21,14 +23,17 @@ import com.xpcosmos.transacoes_bancarias.assets.UserTestResource;
 import com.xpcosmos.transacoes_bancarias.models.User.User;
 import com.xpcosmos.transacoes_bancarias.services.UserService;
 
-@AutoConfigureMockMvc
+
 @SpringBootTest
+@AutoConfigureMockMvc
+@AutoConfigureTestDatabase
+@AutoConfigureTestEntityManager
 public class UserControllerTest extends UserTestResource {
 
-	@Autowired
+  @Autowired
 	MockMvc mockMvc;
 	@MockitoBean
-	UserService userService;
+	UserService service;
 
 	@Test
 	void testUserCreation() throws Exception {
@@ -44,7 +49,7 @@ public class UserControllerTest extends UserTestResource {
 	void testGet() throws Exception {
 		List<User> entities = List.of(gerarEntity(), gerarEntity());
 		String stringValues = mapper.writeValueAsString(entities);
-		when(userService.getAllUsers()).thenReturn(entities);
+		when(service.getAllUsers()).thenReturn(entities);
 		mockMvc.perform(get("/user")
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(

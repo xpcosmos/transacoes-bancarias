@@ -15,6 +15,8 @@ import com.xpcosmos.transacoes_bancarias.exceptions.InvalidOperationException;
 import com.xpcosmos.transacoes_bancarias.exceptions.NotEnoughMoneyException;
 import com.xpcosmos.transacoes_bancarias.models.User.User;
 
+import jakarta.transaction.Transactional;
+
 @ExtendWith(MockitoExtension.class)
 public class TransferenciaServiceTest extends UserTestResource {
 
@@ -24,10 +26,17 @@ public class TransferenciaServiceTest extends UserTestResource {
 	TransferenciaService transferenciaService;
 
 	@Test
+  @Transactional
 	void testExceptionSaldoInsuficiente() throws Exception {
-		User user = gerarEntity();
-		TransacaoDTO transacaoDTO = new TransacaoDTO(1l, user.getId(), 10f);
-		when(userService.getUserById(user.getId())).thenReturn(user);
+		User pagador = gerarEntity();
+    User beneficiario = gerarEntity();
+
+    Long pagadorId = pagador.getId();
+    Long beneficiarioId = beneficiario.getId();
+
+    when(userService.getUserById(pagadorId)).thenReturn(pagador);
+    when(userService.getUserById(beneficiarioId)).thenReturn(beneficiario);
+		TransacaoDTO transacaoDTO = new TransacaoDTO(beneficiarioId, pagadorId, 10f);
 		assertThrowsExactly(NotEnoughMoneyException.class, () -> transferenciaService.tranferir(transacaoDTO));
 	}
 
