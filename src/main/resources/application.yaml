@@ -1,8 +1,17 @@
 spring:
   application:
     name: transacoes-bancarias
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://host.docker.internal:${POSTGRES_PORT}/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
   jpa:
+    database: postgresql
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
       ddl-auto: create
+  data:
+    jdbc:
+      dialect: postgresql
