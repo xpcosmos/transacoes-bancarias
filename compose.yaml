@@ -1,5 +1,15 @@
 services:
+
   javaapp:
-    build: .
+    build:
+      dockerfile: Dockerfile
     ports:
-    - 8080:8080
+      - 8080:8080
+
+  database:
+    build:
+      dockerfile: db.Dockerfile
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
