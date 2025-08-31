@@ -14,8 +14,8 @@ import com.xpcosmos.transacoes_bancarias.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
 
-@Transactional
 @Service
+@Transactional
 public class UserService {
 
 	@Autowired
@@ -23,6 +23,7 @@ public class UserService {
 
 	public User createUser(UserDTO user) throws DuplicateUserException {
 		User newUser = new User(user);
+    repository.saveAndFlush(newUser);
 		if (repository.existsByDocumentoId(newUser.getDocumentoId())) {
 			throw new DuplicateUserException();
 		} else {
@@ -35,6 +36,7 @@ public class UserService {
 		Float saldoAtual = user.getSaldo();
 		saldoAtual += valor;
 		user.setSaldo(saldoAtual);
+    repository.saveAndFlush(user);
 		return saldoAtual;
 	}
 
