@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class TestResource<T>{
 
-	ObjectMapper mapper = new ObjectMapper();
+	public ObjectMapper mapper = new ObjectMapper();
 	String randomString() {return String.valueOf(LocalDateTime.now().hashCode());}
 
 	public abstract T gerarDTO();
