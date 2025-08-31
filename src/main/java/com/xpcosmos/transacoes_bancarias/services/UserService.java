@@ -1,5 +1,7 @@
 package com.xpcosmos.transacoes_bancarias.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,11 @@ public class UserService {
 		saldoAtual += valor;
 		user.setSaldo(saldoAtual);
 		return saldoAtual;
+	}
+
+	public List<User> getAllUsers(){
+		List<User> users = repository.findAll();
+		return users;
 	}
 
 	public User getUserByDocumentoId(String documentoId) throws NotFoundException {
