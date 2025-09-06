@@ -1,19 +1,8 @@
 package com.xpcosmos.transacoes_bancarias.models.permissions;
 
-public abstract class TransferenciaPermission {
-  private PermissionLevel creditarSaldo;
-  private PermissionLevel debitarSaldo;
+public interface TransferenciaPermission {
+  public PermissionLevel getCreditarSaldoPermissionLevel();
 
-  TransferenciaPermission(PermissionLevel creditarSaldoPermissionLevel, PermissionLevel debitarSaldoPermissionLevel){
-    this.creditarSaldo = creditarSaldoPermissionLevel;
-    this.debitarSaldo = debitarSaldoPermissionLevel;
-  }
+  public PermissionLevel getDebitarSaldoPermissionLevel();
 
-  public PermissionLevel getCreditarSaldoPermissionLevel() {
-    return creditarSaldo;
-  }
-
-  public PermissionLevel getDebitarSaldoPermissionLevel() {
-    return debitarSaldo;
-  }
 }
