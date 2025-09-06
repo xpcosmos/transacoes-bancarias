@@ -69,7 +69,7 @@ public class TransferenciaServiceTest extends UserTestResource {
     when(userService.getUserById(beneficiarioId)).thenReturn(beneficiario);
     when(userService.getUserById(pagadorId)).thenReturn(pagador);
 
-    assertThrows(Exception.class, () -> transferenciaService.tranferir(
+    assertThrowsExactly(InvalidOperationException.class, () -> transferenciaService.tranferir(
         new TransacaoDTO(pagadorId, beneficiarioId, 10f)));
 
   }
