@@ -21,18 +21,19 @@ public class TransferenciaService {
 
   @Transactional(value = TxType.REQUIRES_NEW)
   public void tranferir(TransacaoDTO transacaoDTO) throws Exception {
+
     User beneficiario = userService.getUserById(transacaoDTO.payee());
     User pagador = userService.getUserById(transacaoDTO.payer());
 
     if (pagador.getTipoUsuario() == UserType.LOJISTA) {
-      throw new Exception();
-    } else {
-      Float valorTransferencia = transacaoDTO.value();
-      validarSaldoSuficiente(pagador.getSaldo(), valorTransferencia);
-      valdidarValorTransferencia(valorTransferencia);
-      creditarConta(pagador.getId(), valorTransferencia);
-      debitarConta(beneficiario.getId(), valorTransferencia);
+      throw new InvalidOperationException();
     }
+
+    Float valorTransferencia = transacaoDTO.value();
+    validarSaldoSuficiente(pagador.getSaldo(), valorTransferencia);
+    valdidarValorTransferencia(valorTransferencia);
+    creditarConta(pagador.getId(), valorTransferencia);
+    debitarConta(beneficiario.getId(), valorTransferencia);
 
   }
 
