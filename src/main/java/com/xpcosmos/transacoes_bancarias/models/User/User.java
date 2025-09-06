@@ -86,4 +86,12 @@ public class User {
 	public void setSaldo(Float saldo){
 		this.saldo = saldo;
 	}
+
+  public UserType getTipoUsuario() {
+    return tipoUsuario;
+  }
+
+  public void setTipoUsuario(UserType tipoUsuario) {
+    this.tipoUsuario = tipoUsuario;
+  }
 }
