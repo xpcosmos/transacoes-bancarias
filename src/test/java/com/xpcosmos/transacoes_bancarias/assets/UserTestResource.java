@@ -6,7 +6,7 @@ import com.xpcosmos.transacoes_bancarias.models.User.UserType;
 
 public class UserTestResource extends TestResourceEntity<UserDTO, User> {
 
-  private UserType userType = UserType.COMUM;
+  private UserType userType = UserType.USUARIO;
   private Float saldo = 0f;
 
   public UserDTO gerarDTO() {
