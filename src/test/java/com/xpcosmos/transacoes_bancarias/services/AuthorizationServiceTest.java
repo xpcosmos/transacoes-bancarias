@@ -13,6 +13,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import com.xpcosmos.transacoes_bancarias.dto.AuthorizationDTO;
 import com.xpcosmos.transacoes_bancarias.exceptions.ExternalServiceException;
+import com.xpcosmos.transacoes_bancarias.services.external.AuthorizationService;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthorizationServiceTest {

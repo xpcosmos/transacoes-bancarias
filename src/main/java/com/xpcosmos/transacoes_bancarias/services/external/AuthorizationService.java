@@ -1,4 +1,4 @@
-package com.xpcosmos.transacoes_bancarias.services;
+package com.xpcosmos.transacoes_bancarias.services.external;
 
 import java.util.List;
 
