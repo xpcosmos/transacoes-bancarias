@@ -1,7 +1,6 @@
 package com.xpcosmos.transacoes_bancarias.services.external;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +16,6 @@ public class NotificationServiceTest {
   @Test
   void testGetNotificationResponse() {
     String response = notificationService.getNotificationResponse().block();
-    assertEquals("", response);
+    assertEquals(null, response);
   }
 }
