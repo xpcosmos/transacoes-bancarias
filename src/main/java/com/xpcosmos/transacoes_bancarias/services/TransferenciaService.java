@@ -31,7 +31,7 @@ public class TransferenciaService {
   @Autowired
   NotificationService notificationService;
 
-  @Transactional(value = TxType.REQUIRES_NEW)
+  @Transactional(value = TxType.REQUIRES_NEW, dontRollbackOn = SendingNotificationException.class)
   public void tranferir(TransacaoDTO transacaoDTO) throws NotFoundException {
 
     User beneficiario = userService.getUserById(transacaoDTO.payee());
@@ -46,20 +46,20 @@ public class TransferenciaService {
     valdidarValorTransferencia(valorTransferencia);
 
     try {
-      authorization.block().data().get("authorization");
       creditarConta(pagador.getId(), valorTransferencia);
       debitarConta(beneficiario.getId(), valorTransferencia);
+      authorization.block();
+      sendNotification(transacaoDTO);
     } catch (Forbidden e) {
       throw new ExternalServiceException();
     }
+
   }
 
-  @Transactional(value = TxType.SUPPORTS)
-  void sendNotification(){
-    try {
-      notificationService.getNotificationResponse();
-    } catch (Exception e) {
-      throw new SendingNotificationException();
+  void sendNotification(TransacaoDTO transacaoDTO) {
+    String a = null;
+    if (a == null) {
+      throw new SendingNotificationException(transacaoDTO);
     }
 
   }
@@ -70,7 +70,7 @@ public class TransferenciaService {
     }
   }
 
-  void validarTipoPagador(User pagador){
+  void validarTipoPagador(User pagador) {
     if (pagador.getTipoUsuario() == UserType.LOJISTA) {
       throw new InvalidOperationException();
     }
