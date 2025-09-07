@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthorizationServiceTest {
@@ -19,8 +20,9 @@ public class AuthorizationServiceTest {
 
   @Test
   void testGetAuthorizationResponse() throws TimeoutException {
-      var request = authorizationService.getAuthorizationResponse();
-      assertDoesNotThrow(() -> request.blockOptional().orElseThrow(() -> new TimeoutException()));
+    WebClient.create();
+    var request = authorizationService.getAuthorizationResponse();
+    assertDoesNotThrow(() -> request.blockOptional().orElseThrow(() -> new TimeoutException()));
   }
 
   @Test
@@ -28,6 +30,5 @@ public class AuthorizationServiceTest {
     var request = authorizationService.getAuthorizationResponse().block();
     assertNotNull(request.data());
     assertTrue(request.data().containsKey("authorization"));
-
   }
 }

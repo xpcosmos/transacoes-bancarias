@@ -12,19 +12,16 @@ import reactor.core.publisher.Mono;
 import reactor.util.retry.Retry;
 
 @Service
-public class AuthorizationService extends ExternalService {
+public class AuthorizationService extends ExternalServiceWebClient{
+
+
 
   public Mono<AuthorizationDTO> getAuthorizationResponse() {
     try {
-      return webClient.get().uri(getUri()).retrieve().bodyToMono(AuthorizationDTO.class)
+      return webClient.get().uri("v2/authorize").retrieve().bodyToMono(AuthorizationDTO.class)
           .retryWhen(Retry.fixedDelay(3l, Duration.ofSeconds(15)));
     } catch (Forbidden e) {
       throw new ExternalServiceException();
     }
-  }
-
-  @Override
-  public String getUri() {
-    return "https://util.devi.tools/api/v2/authorize";
   }
 }

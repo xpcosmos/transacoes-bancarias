@@ -8,21 +8,14 @@ import reactor.core.publisher.Mono;
 import reactor.util.retry.Retry;
 
 @Service
-public class NotificationService extends ExternalService{
+public class NotificationService extends ExternalServiceWebClient{
 
 
-  public Mono<String> getNotificationResponse(){
+  public Mono<String> getNotificationResponse() {
     return webClient.post()
-      .uri(getUri())
-      .retrieve()
-      .bodyToMono(String.class)
-      .retryWhen(
-        Retry.fixedDelay(3, Duration.ofSeconds(3))
-        );
-  }
-
-  @Override
-  public String getUri() {
-    return "https://util.devi.tools/api/v1/notify";
+        .uri("v2/authorize")
+        .retrieve()
+        .bodyToMono(String.class)
+        .retryWhen(Retry.fixedDelay(3, Duration.ofSeconds(3)));
   }
 }
