@@ -1,4 +1,4 @@
-package com.xpcosmos.transacoes_bancarias.services;
+package com.xpcosmos.transacoes_bancarias.services.external;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -13,7 +13,6 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import com.xpcosmos.transacoes_bancarias.dto.AuthorizationDTO;
 import com.xpcosmos.transacoes_bancarias.exceptions.ExternalServiceException;
-import com.xpcosmos.transacoes_bancarias.services.external.AuthorizationService;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthorizationServiceTest {

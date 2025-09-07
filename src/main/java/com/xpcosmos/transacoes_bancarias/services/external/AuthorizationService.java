@@ -1,24 +1,23 @@
 package com.xpcosmos.transacoes_bancarias.services.external;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import java.time.Duration;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException.Forbidden;
 
 import com.xpcosmos.transacoes_bancarias.dto.AuthorizationDTO;
 import com.xpcosmos.transacoes_bancarias.exceptions.ExternalServiceException;
 
+import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
+
 @Service
-public class AuthorizationService extends ExternalService{
+public class AuthorizationService extends ExternalService {
 
-
-
-  public ResponseEntity<AuthorizationDTO> getAuthorizationResponse() {
-    HttpEntity<HttpHeaders> entity = new HttpEntity<>(getHttpHeaders());
+  public Mono<AuthorizationDTO> getAuthorizationResponse() {
     try {
-      return  restTemplate.exchange(getUri(),HttpMethod.GET,entity, AuthorizationDTO.class);
+      return webClient.get().uri(getUri()).retrieve().bodyToMono(AuthorizationDTO.class)
+          .retryWhen(Retry.fixedDelay(3l, Duration.ofSeconds(15)));
     } catch (Forbidden e) {
       throw new ExternalServiceException();
     }

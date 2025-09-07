@@ -1,12 +1,18 @@
 package com.xpcosmos.transacoes_bancarias.services.external;
 
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import java.time.Duration;
 
+import org.springframework.stereotype.Service;
+
+import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
+
+@Service
 public class NotificationService extends ExternalService{
 
-  public ResponseEntity<String> getNotificationResponse(){
-    return restTemplate.exchange(getUri(), HttpMethod.POST, null, String.class);
+
+  public Mono<String> getNotificationResponse(){
+    return webClient.post().uri(getUri()).retrieve().bodyToMono(String.class).retryWhen(Retry.backoff(3, Duration.ofSeconds(3)));
   }
 
   @Override
