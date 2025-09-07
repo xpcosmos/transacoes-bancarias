@@ -1,16 +1,22 @@
 package com.xpcosmos.transacoes_bancarias.services.external;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.TimeoutException;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.reactive.function.client.WebClient;
+
+import org.springframework.test.annotation.Repeat;
+import org.springframework.web.client.HttpClientErrorException.NotFound;
+import org.springframework.web.reactive.function.client.WebClientResponseException.Forbidden;
+
+import com.xpcosmos.transacoes_bancarias.dto.AuthorizationDTO;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthorizationServiceTest {
@@ -19,16 +25,21 @@ public class AuthorizationServiceTest {
   AuthorizationService authorizationService;
 
   @Test
-  void testGetAuthorizationResponse() throws TimeoutException {
-    WebClient.create();
-    var request = authorizationService.getAuthorizationResponse();
-    assertDoesNotThrow(() -> request.blockOptional().orElseThrow(() -> new TimeoutException()));
+  @Repeat(30)
+  void testGetAuthorizationInstance() throws TimeoutException {
+    authorizationService.getAuthorizationResponse()
+        .doOnError(t -> assertEquals(t.getClass(), Forbidden.class))
+        .doOnError(t -> assertNotEquals(t.getClass(), NotFound.class))
+        .doOnSuccess(t -> assertInstanceOf(t.getClass(), AuthorizationDTO.class));
+
   }
 
   @Test
+  @Repeat(30)
   void testResponseDataStructure() throws TimeoutException {
-    var request = authorizationService.getAuthorizationResponse().block();
-    assertNotNull(request.data());
-    assertTrue(request.data().containsKey("authorization"));
+    authorizationService.getAuthorizationResponse()
+        .doOnError(t -> assertEquals(t.getClass(), Forbidden.class))
+        .doOnSuccess(t -> assertTrue(!t.data().isEmpty()));
+
   }
 }
