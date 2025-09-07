@@ -10,9 +10,11 @@ import com.xpcosmos.transacoes_bancarias.dto.TransacaoDTO;
 import com.xpcosmos.transacoes_bancarias.exceptions.ExternalServiceException;
 import com.xpcosmos.transacoes_bancarias.exceptions.InvalidOperationException;
 import com.xpcosmos.transacoes_bancarias.exceptions.NotEnoughMoneyException;
+import com.xpcosmos.transacoes_bancarias.exceptions.SendingNotificationException;
 import com.xpcosmos.transacoes_bancarias.models.User.User;
 import com.xpcosmos.transacoes_bancarias.models.User.UserType;
 import com.xpcosmos.transacoes_bancarias.services.external.AuthorizationService;
+import com.xpcosmos.transacoes_bancarias.services.external.NotificationService;
 
 import jakarta.transaction.Transactional;
 import jakarta.transaction.Transactional.TxType;
@@ -26,6 +28,8 @@ public class TransferenciaService {
   UserService userService;
   @Autowired
   AuthorizationService authorizationService;
+  @Autowired
+  NotificationService notificationService;
 
   @Transactional(value = TxType.REQUIRES_NEW)
   public void tranferir(TransacaoDTO transacaoDTO) throws NotFoundException {
@@ -48,6 +52,16 @@ public class TransferenciaService {
     } catch (Forbidden e) {
       throw new ExternalServiceException();
     }
+  }
+
+  @Transactional(value = TxType.SUPPORTS)
+  void sendNotification(){
+    try {
+      notificationService.getNotificationResponse();
+    } catch (Exception e) {
+      throw new SendingNotificationException();
+    }
+
   }
 
   void validarSaldoSuficiente(Float saldo, Float valorTransferencia) {
