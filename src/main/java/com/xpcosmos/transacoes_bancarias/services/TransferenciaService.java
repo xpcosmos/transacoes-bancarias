@@ -1,16 +1,22 @@
 package com.xpcosmos.transacoes_bancarias.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClientResponseException.Forbidden;
 
+import com.xpcosmos.transacoes_bancarias.dto.AuthorizationDTO;
 import com.xpcosmos.transacoes_bancarias.dto.TransacaoDTO;
+import com.xpcosmos.transacoes_bancarias.exceptions.ExternalServiceException;
 import com.xpcosmos.transacoes_bancarias.exceptions.InvalidOperationException;
 import com.xpcosmos.transacoes_bancarias.exceptions.NotEnoughMoneyException;
 import com.xpcosmos.transacoes_bancarias.models.User.User;
 import com.xpcosmos.transacoes_bancarias.models.User.UserType;
+import com.xpcosmos.transacoes_bancarias.services.external.AuthorizationService;
 
 import jakarta.transaction.Transactional;
 import jakarta.transaction.Transactional.TxType;
+import reactor.core.publisher.Mono;
 
 @Service
 @Transactional
@@ -18,28 +24,41 @@ public class TransferenciaService {
 
   @Autowired
   UserService userService;
+  @Autowired
+  AuthorizationService authorizationService;
 
   @Transactional(value = TxType.REQUIRES_NEW)
-  public void tranferir(TransacaoDTO transacaoDTO) throws Exception {
+  public void tranferir(TransacaoDTO transacaoDTO) throws NotFoundException {
 
     User beneficiario = userService.getUserById(transacaoDTO.payee());
     User pagador = userService.getUserById(transacaoDTO.payer());
-
-    if (pagador.getTipoUsuario() == UserType.LOJISTA) {
-      throw new InvalidOperationException();
-    }
-
     Float valorTransferencia = transacaoDTO.value();
+
+    validarTipoPagador(pagador);
+
+    Mono<AuthorizationDTO> authorization = getAuthorization();
+
     validarSaldoSuficiente(pagador.getSaldo(), valorTransferencia);
     valdidarValorTransferencia(valorTransferencia);
-    creditarConta(pagador.getId(), valorTransferencia);
-    debitarConta(beneficiario.getId(), valorTransferencia);
 
+    try {
+      authorization.block().data().get("authorization");
+      creditarConta(pagador.getId(), valorTransferencia);
+      debitarConta(beneficiario.getId(), valorTransferencia);
+    } catch (Forbidden e) {
+      throw new ExternalServiceException();
+    }
   }
 
   void validarSaldoSuficiente(Float saldo, Float valorTransferencia) {
     if (saldo < valorTransferencia) {
       throw new NotEnoughMoneyException();
+    }
+  }
+
+  void validarTipoPagador(User pagador){
+    if (pagador.getTipoUsuario() == UserType.LOJISTA) {
+      throw new InvalidOperationException();
     }
   }
 
@@ -49,11 +68,15 @@ public class TransferenciaService {
     }
   }
 
-  public void creditarConta(Long id, Float valor) throws Exception {
+  Mono<AuthorizationDTO> getAuthorization() throws Forbidden {
+    return authorizationService.getAuthorizationResponse();
+  }
+
+  public void creditarConta(Long id, Float valor) throws NotFoundException {
     userService.incrementarSaldo(id, valor);
   }
 
-  public void debitarConta(Long id, Float valor) throws Exception {
+  public void debitarConta(Long id, Float valor) throws NotFoundException {
     userService.incrementarSaldo(id, -valor);
   }
 

@@ -8,18 +8,23 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.xpcosmos.transacoes_bancarias.exceptions.DuplicateUserException;
 import com.xpcosmos.transacoes_bancarias.exceptions.ExternalServiceException;
+import com.xpcosmos.transacoes_bancarias.exceptions.InvalidOperationException;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler{
 
   @ExceptionHandler(DuplicateUserException.class)
   private ResponseEntity<String> duplicatedUserExceptions(DuplicateUserException exception){
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário já existe");
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
   }
 
   @ExceptionHandler(ExternalServiceException.class)
-  private ResponseEntity<String> forbiddenResponse(){
-    return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body("Operação negada por serviço externo");
+  private ResponseEntity<String> forbiddenResponse(ExternalServiceException exception){
+    return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body(exception.getMessage());
+  }
+  @ExceptionHandler(InvalidOperationException.class)
+  private ResponseEntity<String> invalidOperationException(InvalidOperationException exception){
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
   }
 
 }

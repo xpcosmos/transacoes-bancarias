@@ -3,28 +3,37 @@ package com.xpcosmos.transacoes_bancarias.services;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 
 import com.xpcosmos.transacoes_bancarias.assets.UserTestResource;
+import com.xpcosmos.transacoes_bancarias.dto.AuthorizationDTO;
 import com.xpcosmos.transacoes_bancarias.dto.TransacaoDTO;
 import com.xpcosmos.transacoes_bancarias.exceptions.InvalidOperationException;
 import com.xpcosmos.transacoes_bancarias.exceptions.NotEnoughMoneyException;
 import com.xpcosmos.transacoes_bancarias.models.User.User;
 import com.xpcosmos.transacoes_bancarias.models.User.UserType;
+import com.xpcosmos.transacoes_bancarias.services.external.AuthorizationService;
 
 import jakarta.transaction.Transactional;
+import reactor.core.publisher.Mono;
 
 @ExtendWith(MockitoExtension.class)
+@AutoConfigureWebTestClient
 public class TransferenciaServiceTest extends UserTestResource {
 
   @Mock
   UserService userService;
   @InjectMocks
   TransferenciaService transferenciaService;
+  @Mock
+  AuthorizationService authorizationService;
 
   @Test
   @Transactional
@@ -37,7 +46,10 @@ public class TransferenciaServiceTest extends UserTestResource {
 
     when(userService.getUserById(pagadorId)).thenReturn(pagador);
     when(userService.getUserById(beneficiarioId)).thenReturn(beneficiario);
+    when(authorizationService.getAuthorizationResponse())
+        .thenReturn(Mono.just(new AuthorizationDTO("sucess", Map.of("authorization", true))));
     TransacaoDTO transacaoDTO = new TransacaoDTO(beneficiarioId, pagadorId, 10f);
+
     assertThrowsExactly(NotEnoughMoneyException.class, () -> transferenciaService.tranferir(transacaoDTO));
   }
 
@@ -51,6 +63,8 @@ public class TransferenciaServiceTest extends UserTestResource {
 
     when(userService.getUserById(pagador.getId())).thenReturn(pagador);
     when(userService.getUserById(beneficiario.getId())).thenReturn(beneficiario);
+    when(authorizationService.getAuthorizationResponse())
+        .thenReturn(Mono.just(new AuthorizationDTO("sucess", Map.of("authorization", true))));
 
     assertThrowsExactly(InvalidOperationException.class, () -> transferenciaService.tranferir(transacaoDTO));
 
