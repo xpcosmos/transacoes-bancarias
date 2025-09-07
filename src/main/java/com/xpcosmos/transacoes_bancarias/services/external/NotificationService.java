@@ -16,6 +16,6 @@ public class NotificationService extends ExternalServiceWebClient{
         .uri("v2/authorize")
         .retrieve()
         .bodyToMono(String.class)
-        .retryWhen(Retry.fixedDelay(3, Duration.ofSeconds(3)));
+        .retryWhen(Retry.fixedDelay(5, Duration.ofSeconds(5)));
   }
 }
