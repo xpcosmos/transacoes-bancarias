@@ -57,11 +57,11 @@ public class TransferenciaService {
   }
 
   void sendNotification(TransacaoDTO transacaoDTO) {
-    String a = null;
-    if (a == null) {
+    try {
+      notificationService.getNotificationResponse();
+    } catch (Exception e) {
       throw new SendingNotificationException(transacaoDTO);
     }
-
   }
 
   void validarSaldoSuficiente(Float saldo, Float valorTransferencia) {
