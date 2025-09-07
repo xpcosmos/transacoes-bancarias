@@ -1,18 +1,15 @@
 package com.xpcosmos.transacoes_bancarias.services.external;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.concurrent.TimeoutException;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.HttpClientErrorException;
-
-import com.xpcosmos.transacoes_bancarias.dto.AuthorizationDTO;
-import com.xpcosmos.transacoes_bancarias.exceptions.ExternalServiceException;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthorizationServiceTest {
@@ -21,26 +18,16 @@ public class AuthorizationServiceTest {
   AuthorizationService authorizationService;
 
   @Test
-  void testGetAuthorizationResponse() throws ExternalServiceException {
-    try {
-      var response = authorizationService.getAuthorizationResponse();
-      assertNotNull(response);
-      assertTrue(response.hasBody());
-    } catch (ExternalServiceException e) {
-      assertFalse(e.getMessage().isBlank());
-    }
+  void testGetAuthorizationResponse() throws TimeoutException {
+      var request = authorizationService.getAuthorizationResponse();
+      assertDoesNotThrow(() -> request.blockOptional().orElseThrow(() -> new TimeoutException()));
   }
 
   @Test
-  void testResponseDataStructure() throws HttpClientErrorException {
-    try {
-      ResponseEntity<AuthorizationDTO> authorization = authorizationService.getAuthorizationResponse();
-      AuthorizationDTO reponse = authorization.getBody();
-      assertNotNull(reponse);
-      assertTrue(reponse.data().containsKey("authorization"));
-    } catch (ExternalServiceException e) {
-      assertFalse(e.getMessage().isBlank());
-    }
+  void testResponseDataStructure() throws TimeoutException {
+    var request = authorizationService.getAuthorizationResponse().block();
+    assertNotNull(request.data());
+    assertTrue(request.data().containsKey("authorization"));
 
   }
 }

@@ -12,7 +12,13 @@ public class NotificationService extends ExternalService{
 
 
   public Mono<String> getNotificationResponse(){
-    return webClient.post().uri(getUri()).retrieve().bodyToMono(String.class).retryWhen(Retry.backoff(3, Duration.ofSeconds(3)));
+    return webClient.post()
+      .uri(getUri())
+      .retrieve()
+      .bodyToMono(String.class)
+      .retryWhen(
+        Retry.fixedDelay(3, Duration.ofSeconds(3))
+        );
   }
 
   @Override
