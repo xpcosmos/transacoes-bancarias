@@ -37,10 +37,7 @@ jobs:
               exit 1
             fi
       - name: Build Projeto java
-        run: | 
-            if [[ ${{ steps.env_vars.outputs.ALL_NULL }} == false ]]; then 
-              mvn -B package --file pom.xml && exit 0;
-            else exit 1; fi
+        run: mvn -B package --file pom.xml
       - name: Setup Docker Compose
         if: ${{ success() }}
         run: docker compose up
