@@ -35,7 +35,7 @@ jobs:
                 exit 1
             fi
       - name: Get the output time
-        if: "{{ steps.env_vars.outputs.ALL_NULL != false }}"
+        if: "steps.env_vars.outputs.ALL_NULL != false"
         run: mvn -B package --file pom.xml
       - name: Setup Docker Compose
         if: ${{ success() }}
