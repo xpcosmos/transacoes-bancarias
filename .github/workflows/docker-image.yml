@@ -2,7 +2,7 @@ name: Build CI
 
 on: [push]
 env:
-  POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+  POSTGRES_PASSWORD: ${{ secrests.POSTGRES_PASSWORD }}
   POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
   POSTGRES_DB: ${{ vars.POSTGRES_DB }}
   POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
