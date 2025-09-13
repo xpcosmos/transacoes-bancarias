@@ -16,11 +16,11 @@ jobs:
         cache: maven
         distribution: temurin
       env:
-        POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
-        POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
-        POSTGRES_DB: ${{ vars.POSTGRES_DB }}
-        POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-        POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+        POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+        POSTGRES_HOST: ${{ env.POSTGRES_HOST }}
+        POSTGRES_DB: ${{ env.POSTGRES_DB }}
+        POSTGRES_PORT: ${{ env.POSTGRES_PORT }}
+        POSTGRES_USER: ${{ env.POSTGRES_USER }}
 
     - name: Setup maven pkgs
       run: mvn -B package --file pom.xml
