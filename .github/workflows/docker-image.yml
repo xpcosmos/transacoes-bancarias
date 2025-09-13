@@ -1,5 +1,10 @@
 name: Build CI
-
+env:
+  POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+  POSTGRES_HOST: ${{ env.POSTGRES_HOST }}
+  POSTGRES_DB: ${{ env.POSTGRES_DB }}
+  POSTGRES_PORT: ${{ env.POSTGRES_PORT }}
+  POSTGRES_USER: ${{ env.POSTGRES_USER }}
 on:
   push:
     branches: [ "main" ]
@@ -15,13 +20,6 @@ jobs:
         java-version: '21'
         cache: maven
         distribution: temurin
-      env:
-        POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
-        POSTGRES_HOST: ${{ env.POSTGRES_HOST }}
-        POSTGRES_DB: ${{ env.POSTGRES_DB }}
-        POSTGRES_PORT: ${{ env.POSTGRES_PORT }}
-        POSTGRES_USER: ${{ env.POSTGRES_USER }}
-
     - name: Setup maven pkgs
       run: mvn -B package --file pom.xml
     - name: Setup Docker Compose
