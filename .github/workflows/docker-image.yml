@@ -29,9 +29,10 @@ jobs:
                 ALL_NULL=true
                 break
               fi
-              echo "::debug::$item"
+              
             done
-            echo "ALL_NULL=$$ALL_NULL" >> $GITHUB_OUTPUT
+            echo "::debug::$item"
+            echo "ALL_NULL=$(($ALL_NULL))" >> $GITHUB_OUTPUT
             if [[ "$ALL_NULL" = true ]]; then
                 exit 1
             fi
