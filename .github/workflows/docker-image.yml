@@ -25,7 +25,8 @@ jobs:
       run: | 
         variables=( ${{env.POSTGRES_PASSWORD}} $POSTGRES_HOST $POSTGRES_DB $POSTGRES_PORT $POSTGRES_USER )
         for item in "${variables[@]}"; do
-          if [[ "$item" == "" ]]; then
+          if [[ $item == "" ]]; then
+            echo $item 
             exit 1
           fi
         done;
