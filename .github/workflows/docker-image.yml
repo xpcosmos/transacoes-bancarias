@@ -22,6 +22,7 @@ jobs:
         cache: maven
         distribution: temurin
     - name: Test Env variables
+      if: ${{ success() }}
       run: | 
           variables=( $POSTGRES_PASSWORD $POSTGRES_HOST $POSTGRES_DB $POSTGRES_PORT $POSTGRES_USER )
           ALL_NULL=false
@@ -36,6 +37,8 @@ jobs:
               exit 1
           fi 
     - name: Setup maven pkgs
+      if: ${{ success() }}
       run: mvn -B package --file pom.xml
     - name: Setup Docker Compose
+      if: ${{ success() }}
       run: docker compose up
