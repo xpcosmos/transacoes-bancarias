@@ -30,7 +30,8 @@ jobs:
               fi
               echo "::debug::$item"
             done
-            if [[ "$ALL_NULL" = true ]]; then 
+            if [[ "$ALL_NULL" = true ]]; then
+                echo "ALL_NULL=$(($ALL_NULL))" >> $GITHUB_OUTPUT
                 exit 1
             fi
       - name: Build Projeto java
