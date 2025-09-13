@@ -10,5 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: mvn clean package && docker compose up --force-recreate --no-deps --build
+    - uses: actions/setup-java@v5.0.0
+    - name: Setup maven pkgs
+      run: mvn clean package
+    - name: Setup Docker Compose
+      run: docker compose up --force-recreate --no-deps --build 
