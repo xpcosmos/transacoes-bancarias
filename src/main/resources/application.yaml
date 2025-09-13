@@ -15,3 +15,6 @@ spring:
   data:
     jdbc:
       dialect: postgresql
+  springdoc:
+    swagger-ui:
+      path: /swagger
