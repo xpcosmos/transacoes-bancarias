@@ -15,6 +15,13 @@ jobs:
         java-version: '21'
         cache: maven
         distribution: temurin
+      env:
+        POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+        POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
+        POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+        POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+        POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+
     - name: Setup maven pkgs
       run: mvn -B package --file pom.xml
     - name: Setup Docker Compose
