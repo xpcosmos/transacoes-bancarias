@@ -24,19 +24,18 @@ jobs:
             variables=( $POSTGRES_PASSWORD $POSTGRES_HOST $POSTGRES_DB $POSTGRES_PORT $POSTGRES_USER )
             ALL_NULL=false
             for item in "${variables[@]}"; do
-              if [[ -z "$item" ]]; then
+              if [[ "$item" == "" ]]; then
                 ALL_NULL=true
-                
                 break
               fi
-              echo "Finished processing item: $item"
+              echo "::debug::$item"
             done
             if [[ "$ALL_NULL" = true ]]; then 
                 exit 1
             fi
-      - name: Get the output time
-        if: "steps.env_vars.outputs.ALL_NULL != false"
-        run: mvn -B package --file pom.xml
+      - name: Build Projeto java
+        run: | 
+            if [[ ${{ steps.env_vars.outputs.ALL_NULL }} == false ]]; then mvn -B package --file pom.xml && exit 0; else exit 1; fi
       - name: Setup Docker Compose
         if: ${{ success() }}
         run: docker compose up
