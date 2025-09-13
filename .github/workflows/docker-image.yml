@@ -1,10 +1,5 @@
 name: Build CI
-env:
-  POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
-  POSTGRES_HOST: ${{ env.POSTGRES_HOST }}
-  POSTGRES_DB: ${{ env.POSTGRES_DB }}
-  POSTGRES_PORT: ${{ env.POSTGRES_PORT }}
-  POSTGRES_USER: ${{ env.POSTGRES_USER }}
+
 on:
   push:
     branches: [ "main" ]
@@ -13,6 +8,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+      POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
+      POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+      POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+      POSTGRES_USER: ${{ vars.POSTGRES_USER }}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-java@v5.0.0
