@@ -21,6 +21,7 @@ jobs:
       - name: Validar variaveis de ambiente
         id: env_vars
         run: | 
+            #!/bin/bash
             variables=( $POSTGRES_PASSWORD $POSTGRES_HOST $POSTGRES_DB $POSTGRES_PORT $POSTGRES_USER )
             ALL_NULL=false
             for item in "${variables[@]}"; do
@@ -30,10 +31,11 @@ jobs:
               fi
               echo "::debug::$item"
             done
+            echo "ALL_NULL=$$ALL_NULL" >> $GITHUB_OUTPUT
             if [[ "$ALL_NULL" = true ]]; then
-                echo "ALL_NULL=$(($ALL_NULL))" >> $GITHUB_OUTPUT
                 exit 1
             fi
+            
       - name: Build Projeto java
         run: | 
             if [[ ${{ steps.env_vars.outputs.ALL_NULL }} == false ]]; then 
