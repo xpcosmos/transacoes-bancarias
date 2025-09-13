@@ -34,9 +34,8 @@ jobs:
             if [[ "$ALL_NULL" = true ]]; then 
                 exit 1
             fi
-            echo "ALL_NULL=$ALL_NULL\n" >> $GITHUB_ENV
       - name: Get the output time
-        if: "{{ $ALLNULL != false }}"
+        if: "{{ steps.env_vars.outputs.ALL_NULL != false }}"
         run: mvn -B package --file pom.xml
       - name: Setup Docker Compose
         if: ${{ success() }}
