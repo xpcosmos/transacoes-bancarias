@@ -1,20 +1,42 @@
 name: Build CI
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: [push]
+env:
+  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
+  POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+  POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+  POSTGRES_USER: ${{ vars.POSTGRES_USER }}
 jobs:
   build:
     runs-on: ubuntu-latest
+    name: Teste de Build
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-java@v5.0.0
-      with:
-        java-version: '21'
-        cache: maven
-    - name: Setup maven pkgs
-      run: mvn -B package --file pom.xml
-    - name: Setup Docker Compose
-      run: docker compose up
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5.0.0
+        with:
+          java-version: '21'
+          cache: maven
+          distribution: temurin
+      - name: Validar variaveis de ambiente
+        id: env_vars
+        run: | 
+            #!/bin/bash
+            variables=( "$POSTGRES_PASSWORD" "$POSTGRES_HOST" "$POSTGRES_DB" "$POSTGRES_PORT" "$POSTGRES_USER" )
+            ALL_NULL=false
+            
+            for item in "${variables[@]}"; do
+              echo "::debug::$item"
+              if [[ -z "$item" ]]; then
+                ALL_NULL=true
+                break
+              fi
+            done
+            if [[ "$ALL_NULL" == true ]]; then
+              exit 1
+            fi
+      - name: Build Projeto java
+        run: mvn -B package --file pom.xml
+      - name: Setup Docker Compose
+        if: ${{ success() }}
+        run: docker compose up --abort-on-container-exit
