@@ -32,7 +32,6 @@ jobs:
                 break
               fi
             done
-            
             if [[ "$ALL_NULL" == true ]]; then
               exit 1
             fi
@@ -40,4 +39,4 @@ jobs:
         run: mvn -B package --file pom.xml
       - name: Setup Docker Compose
         if: ${{ success() }}
-        run: docker compose up
+        run: docker compose up --exit-code-from
